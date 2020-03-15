@@ -20,7 +20,7 @@ jobs:
       # - run: docker build . --file Dockerfile --tag image
       # - run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       - run: |
-          REPO=${FULL_REPO/ACTOR\//}
+          REPO=${${{ github.repository}}/\//-}
           echo $REPO
           # VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           # [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
