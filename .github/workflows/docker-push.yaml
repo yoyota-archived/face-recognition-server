@@ -22,7 +22,8 @@ jobs:
       - run: |
           REPO=$(echo ${{ github.repository }} | sed -e 's/.*\///')
           echo $REPO
-          # VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          echo $VERSION
           # [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
           # IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$VERSION
           # echo $IMAGE_ID
