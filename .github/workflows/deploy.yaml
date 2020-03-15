@@ -1,9 +1,10 @@
 name: deploy
 
 on:
-  push:
-    branches:
-      - master
+  push
+  # push:
+  #   branches:
+  #     - master
 
 jobs:
   deploy:
@@ -16,9 +17,10 @@ jobs:
       - name: get image repository
         id: image-repository
         run: |
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$VERSION
+          TAG=${{ github.sha }}
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && TAG=$(echo $VERSION | sed -e 's/^v//')
+          IMAGE_NAME=$(echo ${{ github.repository }} | sed -e 's/.*\///')
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME:$TAG
           echo "::set-output name=repository::$IMAGE_ID"
       - run: helm upgrade --install --namespace yoyota
           --set image.repository=${{ steps.image-repository.outputs.repository }}
