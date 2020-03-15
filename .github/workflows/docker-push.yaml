@@ -17,17 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # - run: docker build . --file Dockerfile --tag image
-      # - run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      - run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       - run: |
-          REPO=$(echo ${{ github.repository }} | sed -e 's/.*\///')
-          echo $REPO
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          echo $VERSION
-          # [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          # IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$VERSION
-          # echo $IMAGE_ID
-          # docker tag image $IMAGE_ID:${{ github.sha }}
-          # docker push $IMAGE_ID:${{ github.sha }}
-          # docker tag image $IMAGE_ID:latest
-          # docker push $IMAGE_ID:latest
+          IMAGE_NAME=$(echo ${{ github.repository }} | sed -e 's/.*\///')
+          TAG=${{ github.sha }}
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && TAG=$(echo $VERSION | sed -e 's/^v//')
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME:$TAG
+          docker build . --file Dockerfile --tag $IMAGE_ID
+          docker push $IMAGE_ID
