@@ -14,17 +14,13 @@ jobs:
       - uses: actions/checkout@v2
       - run: mkdir -p ~/.kube
       - run: echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
-      - name: get image repository
-        id: image-repository
-        run: |
+      - run: |
           TAG=${{ github.sha }}
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && TAG=$(echo $VERSION | sed -e 's/^v//')
-          IMAGE_NAME=$(echo ${{ github.repository }} | sed -e 's/.*\///')
-          echo "::set-output name=repository::$IMAGE_NAME"
-          echo "::set-output name=tag::$TAG"
-      - run: helm upgrade --install --namespace yoyota
-          --set image.repository=${{ steps.image-repository.outputs.repository }}
-          --set image.tag=${{ steps.image-repository.outputs.tag }}
-          --set imagePullSecrets[0].name=regcred-github-com
-          --history-max 2
-          face-recognition ./helm
+          REPOSITORY=docker.pkg.github.com/${{ github.repository }}/$(echo ${{ github.repository }} | sed -e 's/.*\///')
+          helm upgrade --install --namespace yoyota
+            --set image.repository=$REPOSITORY
+            --set image.tag=$TAG
+            --set imagePullSecrets[0].name=regcred-github-com
+            --history-max 2
+            face-recognition ./helm
