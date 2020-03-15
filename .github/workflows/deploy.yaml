@@ -20,11 +20,11 @@ jobs:
           TAG=${{ github.sha }}
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && TAG=$(echo $VERSION | sed -e 's/^v//')
           IMAGE_NAME=$(echo ${{ github.repository }} | sed -e 's/.*\///')
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME:$TAG
-          echo "::set-output name=repository::$IMAGE_ID"
+          echo "::set-output name=repository::$IMAGE_NAME"
+          echo "::set-output name=tag::$TAG"
       - run: helm upgrade --install --namespace yoyota
           --set image.repository=${{ steps.image-repository.outputs.repository }}
-          --set image.tag=${{ github.sha }}
+          --set image.tag=${{ steps.image-repository.outputs.tag }}
           --set imagePullSecrets[0].name=regcred-github-com
           --history-max 2
           face-recognition ./helm
