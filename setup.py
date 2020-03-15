@@ -1,7 +1,7 @@
 from os import path
 from setuptools import setup, find_packages
 
-DEPENDENCIES = ["flask"]
+DEPENDENCIES = ["flask", "face_recognition"]
 TEST_DEPENDENCIES = ["pylint", "pytest", "pytest-mock"]
 
 
@@ -12,7 +12,7 @@ def get_long_description():
 
 
 setup(
-    name="face-recognition",
+    name="face-recognition-server",
     version="0.1.0",
     long_description=get_long_description(),
     long_description_content_type="text/markdown",
