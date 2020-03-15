@@ -1,7 +1,7 @@
 # pylint: disable=redefined-outer-name
 
 import pytest
-from starter.app import app
+from face_recognition_server.app import app
 
 
 @pytest.fixture

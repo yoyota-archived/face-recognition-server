@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "flask-starter.fullname" . }}-test-connection"
+  name: "{{ include "face-recognition.fullname" . }}-test-connection"
   labels:
-{{ include "flask-starter.labels" . | nindent 4 }}
+{{ include "face-recognition.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test-success
 spec:
@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args:  ['{{ include "flask-starter.fullname" . }}:{{ .Values.service.port }}']
+      args:  ['{{ include "face-recognition.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never

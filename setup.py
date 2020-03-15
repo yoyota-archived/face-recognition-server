@@ -12,12 +12,11 @@ def get_long_description():
 
 
 setup(
-    name="flask-starter",
+    name="face-recognition",
     version="0.1.0",
     long_description=get_long_description(),
     long_description_content_type="text/markdown",
     packages=find_packages(exclude=("tests",)),
-    entry_points={"console_scripts": ["starter=starter.cli:cli"]},
     install_requires=DEPENDENCIES,
     test_require=TEST_DEPENDENCIES,
     extras_require={"test": TEST_DEPENDENCIES},

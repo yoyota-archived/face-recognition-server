@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "flask-starter.fullname" . }}
+  name: {{ include "face-recognition.fullname" . }}
   labels:
-    {{- include "flask-starter.labels" . | nindent 4 }}
+    {{- include "face-recognition.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "flask-starter.selectorLabels" . | nindent 4 }}
+    {{- include "face-recognition.selectorLabels" . | nindent 4 }}
