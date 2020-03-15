@@ -8,12 +8,8 @@ on:
   #   tags:
   #     - v*
 
-env:
-  FULL_REPO: ${{ github.repository }}
-  ACTOR: ${{ github.actor }}
-
 jobs:
-  push:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
