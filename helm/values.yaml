@@ -1,4 +1,4 @@
-# Default values for flask-starter.
+# Default values for face-recognition.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -41,7 +41,7 @@ ingress:
     kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: flask-starter.dudaji.org
+    - host: face-recognition.dudaji.org
       paths: ["/"]
   tls: []
   #  - secretName: chart-example-tls
@@ -69,7 +69,7 @@ affinity: {}
 args: 
   - --workers=4
   - --bind=0.0.0.0:8080
-  - starter.app:app
+  - face_recognition.app:app
 
 env: []
 

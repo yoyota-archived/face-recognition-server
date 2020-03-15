@@ -2,11 +2,11 @@ apiVersion: skaffold/v1
 kind: Config
 build:
   artifacts:
-    - image: yoyota/python-flask-starter
+    - image: yoyota/python-face-recognition
 deploy:
   helm:
     releases:
-      - name: python-flask-starter
+      - name: python-face-recognition
         namespace: yoyota
         chartPath: helm
         setValueTemplates:
