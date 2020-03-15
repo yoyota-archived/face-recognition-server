@@ -18,9 +18,9 @@ jobs:
           TAG=${{ github.sha }}
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && TAG=$(echo $VERSION | sed -e 's/^v//')
           REPOSITORY=docker.pkg.github.com/${{ github.repository }}/$(echo ${{ github.repository }} | sed -e 's/.*\///')
-          helm upgrade --install --namespace yoyota
-            --set image.repository=$REPOSITORY
-            --set image.tag=$TAG
-            --set imagePullSecrets[0].name=regcred-github-com
-            --history-max 2
+          helm upgrade --install --namespace yoyota \
+            --set image.repository=$REPOSITORY \
+            --set image.tag=$TAG \
+            --set imagePullSecrets[0].name=regcred-github-com \
+            --history-max 2 \
             face-recognition ./helm
